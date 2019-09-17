@@ -21,3 +21,5 @@ cargo run snap_heavy_hitter_equivalent_1_canonicalizer_equivalent_1 ../example_a
 cargo run spam_detection_equivalent_1_canonicalizer_equivalent_1 ../example_alus/stateful_alus/pair.alu  ../example_alus/stateless_alus/stateless_alu.alu 1 1 1 0,1,2,3,4,998,999,1000 ../src/prog_to_run.rs
 
 cargo run stateful_fw_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 0,1,2,3,102,102,2,101,1 ../src/prog_to_run.rs 
+
+../../druzhba/experiments/stateful_fw/stateful_fw

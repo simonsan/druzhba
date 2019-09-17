@@ -47,7 +47,8 @@ fn simple (input_phv : Phv <i32>) -> Phv<i32>{
     new_phv
 
 }
-fn marple_new_flow (input_phv : Phv <i32>) -> Phv<i32>{
+fn marple_new_flow (input_phv : Phv <i32>,
+                    actual_phv : Phv <i32>) -> Phv<i32>{
 
     let mut new_phv : Phv<i32> = input_phv.clone();
 
@@ -57,11 +58,14 @@ fn marple_new_flow (input_phv : Phv <i32>) -> Phv<i32>{
       new_state[0][0] = 1;
       new_phv.set_state(new_state);
     }
+    assert!(new_phv.get_state()[0][0] == actual_phv.get_state()[0][0]);
+    assert!(new_phv[0].field_value == actual_phv[0].field_value);
     new_phv
 
 }
 
-fn blue_increase (input_phv : Phv <i32>) -> Phv <i32> {
+fn blue_increase (input_phv : Phv <i32>,
+                  actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result= input_phv.clone();
   result[1].field_value = result[0].get_value() - 1;
 
@@ -74,16 +78,14 @@ fn blue_increase (input_phv : Phv <i32>) -> Phv <i32> {
   }
 
   result.set_state (new_state);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
   result
 }
-fn learn_filter (input_phv : Phv <i32>) -> Phv <i32> {
+fn learn_filter (input_phv : Phv <i32>,
+                 actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = result.get_state().clone();
-/*
-  result[0].field_value = result[0].field_value;
-  state[0][0] = 1;
-  state[1][0] = 1;
-  state[2][0] = 1; */
 
   if state[2][0]!=0 && state[1][0] !=0 && state[0][0] !=0 {
     result[1].field_value = 1;
@@ -91,11 +93,16 @@ fn learn_filter (input_phv : Phv <i32>) -> Phv <i32> {
   state[2][0] = 1;
   state[1][0] = 1;
   state[0][0] = 1;
-  result.set_state(state);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
+  assert!(result.get_state()[2][0] == actual_phv.get_state()[2][0]);
+
+  assert!(result[1].field_value == actual_phv[1].field_value);
   result
 }
 
-fn marple_tcp_nmo (input_phv : Phv <i32>) -> Phv <i32>{
+fn marple_tcp_nmo (input_phv : Phv <i32>,
+                   actual_phv : Phv <i32>) -> Phv <i32>{
 
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
@@ -111,20 +118,17 @@ fn marple_tcp_nmo (input_phv : Phv <i32>) -> Phv <i32>{
       }
     }
   }
-  /*
-  if result[0].field_value < result.get_state()[1][0] {
-    state[0][0] +=1;
-  }
-  else{
-    state[1][0] = result[0].field_value;
-  }*/
+
   result.set_state(state);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
+
   result
 }
-fn blue_decrease (input_phv : Phv <i32>) -> Phv <i32> {
+fn blue_decrease (input_phv : Phv <i32>,
+                  actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
-//  result[1].field_value = result[0].field_value - 1;
 
   result[1].field_value = result[0].field_value - 10;
   if result[1].field_value > state[1][0] {
@@ -132,11 +136,16 @@ fn blue_decrease (input_phv : Phv <i32>) -> Phv <i32> {
     state[1][0] = result[0].field_value;
   }
   result.set_state (state);
+  assert!(result[1].field_value == actual_phv[1].field_value);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
+
   result
 
 }
 // Based on conga_equivalent_9_canonicalizer_equivalent_1.sk
-fn conga (input_phv : Phv <i32>) -> Phv <i32> {
+fn conga (input_phv : Phv <i32>,
+          actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   if result[0].field_value < 0 {
@@ -165,11 +174,19 @@ fn conga (input_phv : Phv <i32>) -> Phv <i32> {
     }
   }
   result.set_state (state);
+
+  assert!(result[1].field_value == actual_phv[1].field_value);
+
+  assert!(result[2].field_value == actual_phv[2].field_value);
+
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[0][1] == actual_phv.get_state()[0][1]);
   result
 }
 
 // Based on flowlets program function in experiments
-fn flowlets (input_phv : Phv <i32>) -> Phv <i32> {
+fn flowlets (input_phv : Phv <i32>,
+             actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   if result[1].field_value - state[1][0] > 5 {
@@ -179,11 +196,17 @@ fn flowlets (input_phv : Phv <i32>) -> Phv <i32> {
   result[2].field_value = state[0][0];
 
   result.set_state (state);
+
+  assert!(result[2].field_value == actual_phv[2].field_value);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
+
   result
 
 }
 
-fn spam_detection (input_phv : Phv <i32>) -> Phv <i32> {
+fn spam_detection (input_phv : Phv <i32>,
+                   actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   if state[0][0] == 1 {
@@ -197,12 +220,16 @@ fn spam_detection (input_phv : Phv <i32>) -> Phv <i32> {
     }
   }
   result.set_state (state);
+
+   assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+   assert!(result.get_state()[0][1] == actual_phv.get_state()[0][1]);
   result
 }
 
 
 
-fn sampling (input_phv : Phv <i32>) -> Phv <i32> {
+fn sampling (input_phv : Phv <i32>,
+             actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   if state[0][0] != 29 {
@@ -215,20 +242,16 @@ fn sampling (input_phv : Phv <i32>) -> Phv <i32> {
       state[0][0] = 0;
     }
   }
-  /*
-  if state[0][0] == 3 - 1 {
-    result[0].field_value = 1;
-    state[0][0] = 0;
-  }
-  else {
-    result[0].field_value = 0;
-    state[0][0] += 1;
-  }*/
   result.set_state (state);
+
+  assert!(result[0].field_value == actual_phv[0].field_value);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+
   result
 
 }
-fn stateful_fw (input_phv : Phv <i32>) -> Phv <i32> {
+fn stateful_fw (input_phv : Phv <i32>,
+                actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   result[2].field_value = result[1].field_value + result[0].field_value;
@@ -248,10 +271,15 @@ fn stateful_fw (input_phv : Phv <i32>) -> Phv <i32> {
     }
   }
   result.set_state (state);
+  assert!(result[2].field_value == actual_phv[2].field_value);
+  assert!(result[3].field_value == actual_phv[3].field_value);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+
   result
 
 }
-fn rcp (input_phv : Phv <i32>) -> Phv <i32> {
+fn rcp (input_phv : Phv <i32>,
+        actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   state[0][0] += result[0].field_value;
@@ -259,16 +287,17 @@ fn rcp (input_phv : Phv <i32>) -> Phv <i32> {
     state[1][0] += result[1].field_value;
     state[2][0] += 1;
   }
-  /*
-  if result[1].field_value < 2 {
-    state[1][0] += result[1].field_value;
-    state[2][0] += 1;
-  }*/
   result.set_state (state);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+
+  assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
+  assert!(result.get_state()[2][0] == actual_phv.get_state()[2][0]);
+
   result
 
 }
-fn snap_heavy_hitter (input_phv : Phv <i32>) -> Phv <i32> {
+fn snap_heavy_hitter (input_phv : Phv <i32>,
+                      actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result = input_phv.clone();
   let mut state = input_phv.get_state();
   if state[0][1] == 0 {
@@ -277,14 +306,11 @@ fn snap_heavy_hitter (input_phv : Phv <i32>) -> Phv <i32> {
       state[0][1] = 1;
     }
   }
-  /*
-  if state[0][0] == 0 {
-    state[0][1] += 1;
-    if state[0][1] == 1000 {
-      state[0][0] = 1;
-    }
-  }*/
   result.set_state (state);
+  assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
+  assert!(result.get_state()[0][1] == actual_phv.get_state()[0][1]);
+
+
   result
 
 }
@@ -370,22 +396,13 @@ fn main() {
     }
   }
   for i in 0..output_phvs.len(){
-    println!("Input: {}", input_phvs[i]);
+//    println!("Input: {}", input_phvs[i]);
 
-    let expected_phv = spam_detection(input_phvs[i].clone());
-
+    let expected_phv = marple_new_flow(input_phvs[i].clone(),
+                                       output_phvs[i].clone());
+/*
     println!("Expected: {}", expected_phv);
-
-    println!("Actual: {}\n", output_phvs[i]);
-//    assert!(expected_phv[0].field_value == output_phvs[i][0].field_value);
-//    assert!(expected_phv[1].field_value == output_phvs[i][1].field_value);
-//    assert!(expected_phv[2].field_value == output_phvs[i][2].field_value);
-
- //   assert!(expected_phv[3].field_value == output_phvs[i][3].field_value);
-    assert!(expected_phv.get_state().clone()[0][0]==output_phvs[i].get_state()[0][0]);
-    assert!(expected_phv.get_state().clone()[0][1]==output_phvs[i].get_state()[0][1]);
-//    assert!(expected_phv.get_state().clone()[1][0]==output_phvs[i].get_state()[1][0]);
- //   assert!(expected_phv.get_state().clone()[2][0]==output_phvs[i].get_state()[2][0]);
+    println!("Actual: {}\n", output_phvs[i]);*/
   }
 }
 #[cfg(test)]

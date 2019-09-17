@@ -1,0 +1,13 @@
+blue_increase: Fail: No output_mux_global holes?
+blue_decrease: ok
+marple_new_flow: ok
+marple_tcp_nmo: ok? Had to change spec
+learn_filter: ok?  Had to change spec. PhvContainers that were not filled with packets changed
+conga: ok
+flowlets: ok
+rcp: ok
+sampling: ok
+snap_heavy_hitter: ok
+spam_detection: ok
+stateful_fw : ok but fails with values >=32
+pkt0 = 72, pkt1 = 37, pkt2 = 82, pkt3 = 90, state00 = 0
