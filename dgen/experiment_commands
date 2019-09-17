@@ -1,0 +1,23 @@
+cargo run blue_increase_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu_arith.alu 4 2 2 0,1,2,3,10 ../src/prog_to_run.rs
+
+cargo run marple_new_flow_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 2 2 1 0,1,2,3 ../src/prog_to_run.rs
+
+cargo run marple_tcp_nmo_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu  3 2 2 0,1,2,3 ../src/prog_to_run.rs
+
+cargo run blue_decrease_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/sub.alu ../example_alus/stateless_alus/stateless_alu_arith.alu 4 2 2 19,10,15,18,11,1,3,1,0,12,22,2,16,10,9,17 ../src/prog_to_run.rs 
+
+cargo run learn_filter_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/raw.alu ../example_alus/stateless_alus/stateless_alu.alu  5 3 3 2,1,0,3 ../src/prog_to_run.rs
+
+cargo run conga_equivalent_1_canonicalizer_equivalent_1 ../example_alus/stateful_alus/pair.alu  ../example_alus/stateless_alus/stateless_alu.alu 1 5 1 0,1,2,3 ../src/prog_to_run.rs
+
+cargo run flowlets_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 2 0,1,2,3,5,6,1,7,2,5 ../src/prog_to_run.rs 
+
+cargo run rcp_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 3 3 3 0,1,2,3,30,31 ../src/prog_to_run.rs 
+
+cargo run sampling_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/if_else_raw.alu  ../example_alus/stateless_alus/stateless_alu.alu  2 1 1 29,29,2,0,1,1,30,3 ../src/prog_to_run.rs 
+
+cargo run snap_heavy_hitter_equivalent_1_canonicalizer_equivalent_1 ../example_alus/stateful_alus/pair.alu ../example_alus/stateless_alus/stateless_alu.alu 1 1 1 0,1,2,3,998,999,1000 ../src/prog_to_run.rs 
+
+cargo run spam_detection_equivalent_1_canonicalizer_equivalent_1 ../example_alus/stateful_alus/pair.alu  ../example_alus/stateless_alus/stateless_alu.alu 1 1 1 0,1,2,3,4,998,999,1000 ../src/prog_to_run.rs
+
+cargo run stateful_fw_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 0,1,2,3,102,102,2,101,1 ../src/prog_to_run.rs 

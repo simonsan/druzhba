@@ -256,3 +256,20 @@ fn test_simplified_hull  (input_phvs : Vec <Phv <i32> >,
   }}
 
 }}
+// TODO: Verify this is correct
+fn test_conga  (input_phvs : Vec <Phv <i32> >,
+                output_phvs : Vec <Phv <i32> >) {{
+
+  for i in 0..output_phvs.len() {{
+    
+    assert!(input_phvs[i][0].get_value() == output_phvs[i][0].get_value());
+    if input_phvs[i].get_state()[0][0] == 0 {{
+      assert!(output_phvs[i].get_state()[0][1] == input_phvs[i].get_state()[0][1]+1);
+      if output_phvs[i].get_state()[0][1] == 1000 {{
+        assert!(output_phvs[i].get_state()[0][0]==1);
+      }}
+    }}
+  }}
+
+}}
+
