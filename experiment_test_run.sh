@@ -5,6 +5,7 @@ cargo build
 : '
 cd dgen
 cargo build
+# Should fail: no output_mux_global holes
 cargo run blue_increase_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu_arith.alu 4 2 2 "0,1,2,3,10" ../src/prog_to_run.rs
 cd ..
 cargo run experiments/blue_increase/blue_increase_1/blue_increase_equivalent_1_canonicalizer_equivalent_0_pred_raw_stateless_alu_arith_4_2_hole_cfgs.txt 2 1000 blue_increase
@@ -18,6 +19,8 @@ read -p "Press enter to continue"
 cd dgen
 cargo run blue_increase_equivalent_3_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu_arith.alu 4 2 2 "0,1,2,3,10" ../src/prog_to_run.rs
 cd ..
+
+# Should fail: no output_mux_global holes
 cargo run experiments/blue_increase/blue_increase_3/blue_increase_equivalent_3_canonicalizer_equivalent_0_pred_raw_stateless_alu_arith_4_2_hole_cfgs.txt 2 1000 blue_increase
 read -p "Press enter to continue"
 cd dgen
@@ -30,6 +33,8 @@ read -p "Press enter to continue"
 cd dgen
 cargo run blue_increase_equivalent_5_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu_arith.alu 4 2 2 "0,1,2,3,10" ../src/prog_to_run.rs
 cd ..
+
+# Should fail: no output_mux_global holes
 cargo run experiments/blue_increase/blue_increase_5/blue_increase_equivalent_2_canonicalizer_equivalent_5_pred_raw_stateless_alu_arith_4_2_hole_cfgs.txt 2 1000 blue_increase
 
 read -p "Press enter to continue"
@@ -49,6 +54,8 @@ read -p "Press enter to continue"
 cd dgen
 cargo run blue_increase_equivalent_8_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu_arith.alu 4 2 2 "0,1,2,3,10" ../src/prog_to_run.rs
 cd ..
+
+# Should fail: no output_mux_global holes
 cargo run experiments/blue_increase/blue_increase_8/blue_increase_equivalent_8_canonicalizer_equivalent_0_pred_raw_stateless_alu_arith_4_2_hole_cfgs.txt 2 1000 blue_increase
 
 read -p "Press enter to continue"
@@ -681,36 +688,43 @@ read -p "Press enter to continue"
 cd dgen
 cargo run stateful_fw_equivalent_1_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 "0,1,2,3,102,102,2,101,1" ../src/prog_to_run.rs
 cd ..
-cargo run experiments/stateful_fw/stateful_fw1/stateful_fw_equivalent_1_canonicalizer_equivalent_1_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
+# Only passes for small values (0 - ~32)
+cargo run experiments/stateful_fw/stateful_fw1/stateful_fw_equivalent_1_canonicalizer_equivalent_0_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
 
 
 read -p "Press enter to continue"
 cd dgen
 cargo run stateful_fw_equivalent_2_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 "0,1,2,3,102,102,1,2,101" ../src/prog_to_run.rs
 cd ..
-cargo run experiments/stateful_fw/stateful_fw2/stateful_fw_equivalent_2_canonicalizer_equivalent_1_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
+
+# Only passes for small values (0 - ~32)
+cargo run experiments/stateful_fw/stateful_fw2/stateful_fw_equivalent_2_canonicalizer_equivalent_0_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
 
 read -p "Press enter to continue"
 cd dgen
 cargo run stateful_fw_equivalent_3_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 "0,1,2,3,102,102,1,100,103" ../src/prog_to_run.rs
 cd ..
-cargo run experiments/stateful_fw/stateful_fw3/stateful_fw_equivalent_3_canonicalizer_equivalent_1_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
+# This passes
+cargo run experiments/stateful_fw/stateful_fw3/stateful_fw_equivalent_3_canonicalizer_equivalent_0_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
 
 read -p "Press enter to continue"
 cd dgen
 cargo run stateful_fw_equivalent_4_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 "0,1,2,3,102,102,1,101,203,2,3,103" ../src/prog_to_run.rs
 cd ..
-cargo run experiments/stateful_fw/stateful_fw4/stateful_fw_equivalent_4_canonicalizer_equivalent_1_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
+# This passes
+cargo run experiments/stateful_fw/stateful_fw4/stateful_fw_equivalent_4_canonicalizer_equivalent_0_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
 
 read -p "Press enter to continue"
 cd dgen
 cargo run stateful_fw_equivalent_5_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 "0,1,2,3,102,102,1,100,103,101,3" ../src/prog_to_run.rs
 cd ..
-cargo run experiments/stateful_fw/stateful_fw5/stateful_fw_equivalent_5_canonicalizer_equivalent_1_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
+# This passes 
+cargo run experiments/stateful_fw/stateful_fw5/stateful_fw_equivalent_5_canonicalizer_equivalent_0_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
 
 read -p "Press enter to continue"
 cd dgen
 cargo run stateful_fw_equivalent_6_canonicalizer_equivalent_0 ../example_alus/stateful_alus/pred_raw.alu ../example_alus/stateless_alus/stateless_alu.alu 4 5 1 "0,1,2,3,102,102,2,101,1,103" ../src/prog_to_run.rs
 cd ..
-cargo run experiments/stateful_fw/stateful_fw6/stateful_fw_equivalent_6_canonicalizer_equivalent_1_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
+# This fails 
+cargo run experiments/stateful_fw/stateful_fw6/stateful_fw_equivalent_6_canonicalizer_equivalent_0_pred_raw_stateless_alu_4_5_hole_cfgs.txt 4 1000 stateful_fw
 
