@@ -123,6 +123,8 @@ fn marple_tcp_nmo (input_phv : Phv <i32>,
 
   result.set_state(state);
   println!("Expected: {}", result);
+
+  println!("Actual: {}", actual_phv);
   assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
   assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
 
