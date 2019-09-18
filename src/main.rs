@@ -122,6 +122,7 @@ fn marple_tcp_nmo (input_phv : Phv <i32>,
   }
 
   result.set_state(state);
+  println!("Expected: {}", result);
   assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
   assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
 
@@ -363,7 +364,7 @@ fn main() {
                     // _s not used
             .for_each ( |_s| {
              packet.add_container_to_phv(PhvContainer {
-                 field_value :rand::thread_rng().gen_range(0,32),
+                 field_value :rand::thread_rng().gen_range(0,100),
              }); 
            });
            
@@ -381,7 +382,7 @@ fn main() {
       // _j not used
       for _j in 0..num_state_values {
 
-        tmp_state_vec.push(rand :: thread_rng().gen_range(0,32));
+        tmp_state_vec.push(rand :: thread_rng().gen_range(0,100));
            
       }
       state.push (tmp_state_vec);
@@ -398,45 +399,41 @@ fn main() {
   }
   for i in 0..output_phvs.len(){
 
+    println!("Input: {}", input_phvs[i]);
     if args.len() == 5 {
       match test_function.as_ref() {
-        "conga" => conga (input_phvs[i].clone(), 
-                          output_phvs[i].clone()),
-        "snap_heavy_hitter" =>snap_heavy_hitter(input_phvs[i].clone(), 
-                          output_phvs[i].clone()),
+        "conga"             => conga (input_phvs[i].clone(), 
+                               output_phvs[i].clone()),
+        "snap_heavy_hitter" => snap_heavy_hitter(input_phvs[i].clone(), 
+                                                 output_phvs[i].clone()),
 
-        "marple_new_flow" => marple_new_flow (input_phvs[i].clone(), 
+        "marple_new_flow"   => marple_new_flow (input_phvs[i].clone(), 
                                               output_phvs[i].clone()),       
-        "marple_tcp_nmo" => marple_tcp_nmo(input_phvs[i].clone(), 
+        "marple_tcp_nmo"    => marple_tcp_nmo(input_phvs[i].clone(), 
+                                              output_phvs[i].clone()),       
+        "sampling"          => sampling (input_phvs[i].clone(), 
+                                         output_phvs[i].clone()),       
+        "flowlets"          => flowlets (input_phvs[i].clone(), 
+                                         output_phvs[i].clone()),
+        "spam_detection"    => spam_detection (input_phvs[i].clone(), 
+                                               output_phvs[i].clone()),
+        "stateful_fw"       => stateful_fw(input_phvs[i].clone(), 
                                            output_phvs[i].clone()),       
-        "sampling" => sampling (input_phvs[i].clone(), 
-                                output_phvs[i].clone()),       
-        "flowlets" => flowlets (input_phvs[i].clone(), 
-                                output_phvs[i].clone()),
-        "spam_detection" => spam_detection (input_phvs[i].clone(), 
-                                            output_phvs[i].clone()),
-        "stateful_fw" => stateful_fw(input_phvs[i].clone(), 
-                                     output_phvs[i].clone()),       
-        "rcp"                       => rcp(input_phvs[i].clone(), 
+        "rcp"               => rcp(input_phvs[i].clone(), 
+                                   output_phvs[i].clone()),       
+        "learn_filter"      => learn_filter(input_phvs[i].clone(), 
                                        output_phvs[i].clone()),       
-        "learn_filter" => learn_filter(input_phvs[i].clone(), 
-                                       output_phvs[i].clone()),       
-        "blue_increase" => blue_increase (input_phvs[i].clone(), 
-                                          output_phvs[i].clone()),
-        "blue_decrease" => blue_decrease (input_phvs[i].clone(), 
-                                          output_phvs[i].clone()),
+        "blue_increase"     => blue_increase (input_phvs[i].clone(), 
+                                              output_phvs[i].clone()),
+        "blue_decrease"     => blue_decrease (input_phvs[i].clone(), 
+                                              output_phvs[i].clone()),
 
         _       => panic!("Error: Not a valid test function")
       };
     }
     else {
-
-      println!("Input: {}", input_phvs[i]);
-//      println!("Expected: {}", expected_phv);
       println!("Actual: {}\n", output_phvs[i]);
     }
-      println!("Input: {}", input_phvs[i]);
-//      println!("Expected: {}", expected_phv);
       println!("Actual: {}\n", output_phvs[i]);
 
   }
