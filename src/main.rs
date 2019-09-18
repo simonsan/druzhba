@@ -67,17 +67,18 @@ fn marple_new_flow (input_phv : Phv <i32>,
 fn blue_increase (input_phv : Phv <i32>,
                   actual_phv : Phv <i32>) -> Phv <i32> {
   let mut result= input_phv.clone();
-  result[1].field_value = result[0].get_value() - 1;
+  result[1].field_value = result[0].get_value() - 10;
 
   let mut new_state : Vec <Vec<i32>> = result.get_state().clone();
-  if result[1].get_value() > result.get_state()[1][0] {
+  if result[1].get_value() > new_state[1][0] {
       let new_state_0_0 = result.get_state()[0][0]+1;
       let new_state_1_0 = result[0].get_value();
       new_state[0][0] = new_state_0_0;
       new_state[1][0] = new_state_1_0;
   }
-
+ 
   result.set_state (new_state);
+
   assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
   assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
   result
@@ -88,16 +89,17 @@ fn learn_filter (input_phv : Phv <i32>,
   let mut state = result.get_state().clone();
 
   if state[2][0]!=0 && state[1][0] !=0 && state[0][0] !=0 {
-    result[1].field_value = 1;
+    result[0].field_value = 1;
   }
   state[2][0] = 1;
   state[1][0] = 1;
   state[0][0] = 1;
+  result.set_state(state);
   assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
   assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
   assert!(result.get_state()[2][0] == actual_phv.get_state()[2][0]);
 
-  assert!(result[1].field_value == actual_phv[1].field_value);
+  assert!(result[0].field_value == actual_phv[0].field_value);
   result
 }
 
@@ -318,7 +320,7 @@ fn snap_heavy_hitter (input_phv : Phv <i32>,
 fn main() {
 
   let args : Vec<String> = env::args().collect();
-  assert!(args.len() == 4);
+  assert!(args.len() == 4 || args.len() == 5);
 
   // Parse returns a result so unwrap
   let num_packets : i32 = 
@@ -334,6 +336,8 @@ fn main() {
       Ok  (t_ticks) => t_ticks,
       Err (_)         => panic!("Failure: Unable to unwrap ticks"),
     };
+  // Optional parameters for test experiments
+  let test_function : String = args[4].clone();
   let hole_cfgs_file : String = args[1].clone();
   let hole_cfgs : HashMap <String, i32> = get_hole_cfgs (hole_cfgs_file.clone());
   let num_stateful_alus = prog_to_run::num_stateful_alus();
@@ -396,13 +400,48 @@ fn main() {
     }
   }
   for i in 0..output_phvs.len(){
-//    println!("Input: {}", input_phvs[i]);
 
-    let expected_phv = marple_new_flow(input_phvs[i].clone(),
-                                       output_phvs[i].clone());
-/*
-    println!("Expected: {}", expected_phv);
-    println!("Actual: {}\n", output_phvs[i]);*/
+    if args.len() == 5 {
+      match test_function.as_ref() {
+        "conga" => conga (input_phvs[i].clone(), 
+                          output_phvs[i].clone()),
+        "snap_heavy_hitter" =>snap_heavy_hitter(input_phvs[i].clone(), 
+                          output_phvs[i].clone()),
+
+        "marple_new_flow" => marple_new_flow (input_phvs[i].clone(), 
+                                              output_phvs[i].clone()),       
+        "marple_tcp_nmo" => marple_tcp_nmo(input_phvs[i].clone(), 
+                                           output_phvs[i].clone()),       
+        "sampling" => sampling (input_phvs[i].clone(), 
+                                output_phvs[i].clone()),       
+        "flowlets" => flowlets (input_phvs[i].clone(), 
+                                output_phvs[i].clone()),
+        "spam_detection" => spam_detection (input_phvs[i].clone(), 
+                                            output_phvs[i].clone()),
+        "stateful_fw" => stateful_fw(input_phvs[i].clone(), 
+                                     output_phvs[i].clone()),       
+        "rcp"                       => rcp(input_phvs[i].clone(), 
+                                       output_phvs[i].clone()),       
+        "learn_filter" => learn_filter(input_phvs[i].clone(), 
+                                       output_phvs[i].clone()),       
+        "blue_increase" => blue_increase (input_phvs[i].clone(), 
+                                          output_phvs[i].clone()),
+        "blue_decrease" => blue_decrease (input_phvs[i].clone(), 
+                                          output_phvs[i].clone()),
+
+        _       => panic!("Error: Not a valid test function")
+      };
+    }
+    else {
+
+      println!("Input: {}", input_phvs[i]);
+//      println!("Expected: {}", expected_phv);
+      println!("Actual: {}\n", output_phvs[i]);
+    }
+      println!("Input: {}", input_phvs[i]);
+//      println!("Expected: {}", expected_phv);
+      println!("Actual: {}\n", output_phvs[i]);
+
   }
 }
 #[cfg(test)]
