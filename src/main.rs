@@ -79,6 +79,7 @@ fn blue_increase (input_phv : Phv <i32>,
  
   result.set_state (new_state);
 
+  assert!(result[1].field_value == actual_phv[1].field_value);
   assert!(result.get_state()[0][0] == actual_phv.get_state()[0][0]);
   assert!(result.get_state()[1][0] == actual_phv.get_state()[1][0]);
   result
