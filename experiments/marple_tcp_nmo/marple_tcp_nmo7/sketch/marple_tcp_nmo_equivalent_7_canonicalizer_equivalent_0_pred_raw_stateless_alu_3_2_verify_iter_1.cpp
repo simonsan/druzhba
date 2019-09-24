@@ -33,9 +33,9 @@ void glblInit_constant_vector__ANONYMOUS_s212(int* constant_vector__ANONYMOUS_s2
   CopyArr<int >(constant_vector__ANONYMOUS_s211,_tt1, 4, 4);
 }
 void _main(int pkt_0, int state_group_0_state_0, int state_group_1_state_0, int* constant_vector__ANONYMOUS_s204/* len = 4 */) {
-  pkt_0 = 30;
-  state_group_0_state_0 = 25;
-  state_group_1_state_0 = 7;
+  pkt_0 = 10;
+  state_group_0_state_0 = 1;
+  state_group_1_state_0 = 58;
   std::cout<<"pkt_0 = " <<pkt_0 << " state00 = " << state_group_0_state_0 <<" state10 = " <<state_group_1_state_0 <<"\n";
   int  pipeline_result_s1_state_group_0_state_0_s220=0;
   int  pipeline_result_s1_state_group_1_state_0_s221=0;
@@ -54,7 +54,9 @@ void pipeline(int state_and_packet_pkt_0_s234, int state_and_packet_state_group_
   int  destination_0_0_s5=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateless_alu_0_0(state_and_packet_pkt_0_s234, 0, 15, 1, 0, 0, 0, destination_0_0_s5, constant_vector__ANONYMOUS_s203);
   int  destination_0_1_s7=0;
-  marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateless_alu_0_1(state_and_packet_pkt_0_s234, 0, 15, 2, 1, 1, 0, destination_0_1_s7, constant_vector__ANONYMOUS_s203);
+  marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateless_alu_0_1(state_and_packet_pkt_0_s234, 0, 15, 2, 1, 1, 0, destination_0_1_s7, constant_vector__ANONYMOUS_s203
+      ;
+   std::cout<<"Stateful muxes 0\n";
   int  packet_operand_salu0_0_0_s9=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateful_operand_mux_0_0_0(state_and_packet_pkt_0_s234, 0, 0, packet_operand_salu0_0_0_s9);
   int  packet_operand_salu0_0_1_s11=0;
@@ -73,10 +75,14 @@ void pipeline(int state_and_packet_pkt_0_s234, int state_and_packet_state_group_
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_output_mux_phv_0_0(old_state_group_0_0_s17_state_0_s247, old_state_group_0_1_s19_state_0_s249, destination_0_0_s5, 0, output_0_0_s21);
   int  output_0_1_s23=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_output_mux_phv_0_1(old_state_group_0_0_s17_state_0_s247, old_state_group_0_1_s19_state_0_s249, destination_0_1_s7, 1, output_0_1_s23);
+
+  std::cout<<"Output mux results 0: " << output_0_0_s21 << " , " << output_0_1_s23<<"\n";
+
   int  destination_1_0_s25=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateless_alu_1_0(output_0_0_s21, output_0_1_s23, 1, 0, 1, 0, 0, destination_1_0_s25, constant_vector__ANONYMOUS_s203);
   int  destination_1_1_s27=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateless_alu_1_1(output_0_0_s21, output_0_1_s23, 12, 0, 0, 1, 0, destination_1_1_s27, constant_vector__ANONYMOUS_s203);
+  std::cout<<"Stateful operand muxes 1\n";
   int  packet_operand_salu1_0_0_s29=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateful_operand_mux_1_0_0(output_0_0_s21, output_0_1_s23, 0, packet_operand_salu1_0_0_s29);
   int  packet_operand_salu1_0_1_s31=0;
@@ -95,6 +101,8 @@ void pipeline(int state_and_packet_pkt_0_s234, int state_and_packet_state_group_
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_output_mux_phv_1_0(old_state_group_1_0_s37_state_0_s251, old_state_group_1_1_s39_state_0_s253, destination_1_0_s25, 1, output_1_0_s41);
   int  output_1_1_s43=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_output_mux_phv_1_1(old_state_group_1_0_s37_state_0_s251, old_state_group_1_1_s39_state_0_s253, destination_1_1_s27, 3, output_1_1_s43);
+
+  std::cout<<"Output mux results 1: " << output_1_0_s41 << " , " << output_1_1_s43<<"\n";
   int  destination_2_0_s45=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_stateless_alu_2_0(output_1_0_s41, output_1_1_s43, 14, 1, 0, 0, 0, destination_2_0_s45, constant_vector__ANONYMOUS_s203);
   int  destination_2_1_s47=0;
@@ -117,6 +125,7 @@ void pipeline(int state_and_packet_pkt_0_s234, int state_and_packet_state_group_
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_output_mux_phv_2_0(old_state_group_2_0_s57_state_0_s255, old_state_group_2_1_s59_state_0_s257, destination_2_0_s45, 2, output_2_0_s61);
   int  output_2_1_s63=0;
   marple_tcp_nmo_equivalent_7_canonicalizer_equivalent_0_pred_raw_stateless_alu_3_2_output_mux_phv_2_1(old_state_group_2_0_s57_state_0_s255, old_state_group_2_1_s59_state_0_s257, destination_2_1_s47, 0, output_2_1_s63);
+  std::cout<<"Output mux results 2: " << output_2_0_s61 << " , " << output_2_1_s63<<"\n";
   _out_pkt_0_s237 = output_2_0_s61;
   _out_state_group_0_state_0_s238 = state_operand_salu_2_0_state_0_s244;
   _out_state_group_1_state_0_s239 = state_operand_salu_0_1_state_0_s241;

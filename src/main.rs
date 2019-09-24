@@ -366,6 +366,7 @@ fn main() {
                     // _s not used
             .for_each ( |_s| {
              packet.add_container_to_phv(PhvContainer {
+//                 field_value : 10
                  field_value :rand::thread_rng().gen_range(0,100),
              }); 
            });
@@ -389,6 +390,7 @@ fn main() {
       }
       state.push (tmp_state_vec);
     }
+//    let s : Vec <Vec <i32> > = vec! [ vec![1], vec![58] ];
     packet.set_state(state);
 
     input_phvs.push (packet.clone());

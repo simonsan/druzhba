@@ -104,6 +104,7 @@ impl PipelineStage {
           }
         }
         output_phv.set_state (output_state);
+//        println!("Output phv: {}", output_phv);
         output_phv
       }
       
