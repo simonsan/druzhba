@@ -10,7 +10,7 @@ use std::process::Command;
 // in dgen_data
 fn main() { 
     
-  let out_dir = String::from("src/");;
+  let out_dir = String::from("src/");
   let destination = Path::new(&out_dir).join("test_with_chipmunk.rs");
   let mut test_file = File::create(&destination).unwrap();
 
